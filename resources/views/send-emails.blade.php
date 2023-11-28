@@ -45,10 +45,15 @@
 
                         <div class="col-span-2 col-start-4">
 
+                            <form method="POST" action="{{ route('sendEmail') }}">
+                                @csrf
+                                @method('GET')
 
-                            <x-secondary-button>
+                            <x-secondary-button type="submit">
                                 Enviar correos
                             </x-secondary-button>
+                            </form>
+
                         </div>
 
                     </div>

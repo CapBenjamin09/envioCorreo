@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Imports\EmailImport;
+use App\Mail\EmailMessage;
 use App\Models\Email;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -32,6 +34,17 @@ class EmailController extends Controller
         Excel::import(new EmailImport, $file);
 
         return redirect()->route('send-emails.index')->with('success', 'Archivo cargado exitosamente!');
+    }
+
+    public function sendEmail()
+    {
+        $emails = Email::all();
+        foreach ($emails as $email){
+        Mail::to($email->email)->send(new EmailMessage($email));
+        }
+
+
+        redirect()->back();
     }
 
 }

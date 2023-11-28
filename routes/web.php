@@ -25,8 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //ENVIO CORREOS
+    Route::get('/emails', [EmailController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/send-emails', [EmailController::class, 'index'])->name('send-emails.index');
     Route::post('/send-emails', [EmailController::class, 'store'])->name('send-emails.store');
+
 });
 
 require __DIR__.'/auth.php';
