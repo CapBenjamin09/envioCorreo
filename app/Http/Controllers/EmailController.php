@@ -44,7 +44,7 @@ class EmailController extends Controller
         }
 
 
-        redirect()->back();
+        return redirect()->route('send-emails.index')->with('success', 'Correos enviados!');
     }
 
 }
