@@ -11,12 +11,25 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="relative grid grid-cols-5 gap-2">
-                        <form class="mx-32 space-x-6 col-start-1 col-end-4">
-                            <div class="items-center">
+                        <form class="mx-32 space-x-6 col-start-1 col-end-4" action="{{ route('send-emails.store')}}" method="post" enctype="multipart/form-data">
+                            @csrf
 
+                            @if(session('success'))
+                                <div class="flex justify-center px-32 p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @error('file_excel')
+                            <div class="flex justify-center px-32 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                                {{ $message }}
+                            </div>
+                            @enderror
+
+                            <div class="items-center">
                                 <label class="block">
                                     <span class="sr-only">Choose profile photo</span>
-                                    <input type="file" class="block w-full text-sm text-slate-500
+                                    <input type="file" name="file_excel" id="file_excel" class="block w-full text-sm text-slate-500
                                             file:mr-4 file:py-2 file:px-4
                                             file:rounded-full file:border-0
                                             file:text-sm file:font-semibold
@@ -25,19 +38,20 @@
                                           "/>
                                 </label>
                             </div>
+                            <x-secondary-button type="submit">
+                                Cargar Datos
+                            </x-secondary-button>
                         </form>
 
                         <div class="col-span-2 col-start-4">
-                            <x-secondary-button>
-                                Enviar correos
-                            </x-secondary-button>
+
 
                             <x-secondary-button>
                                 Enviar correos
                             </x-secondary-button>
                         </div>
 
-                </div>
+                    </div>
 
 
                 </div>
@@ -49,116 +63,29 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <h2 class="text-2xl font-bold mb-4">Example Datatable</h2>
+                <h2 class="text-2xl font-bold mb-4">Lista de certificados</h2>
                 <table id="example" class="table-auto w-full">
                     <thead>
                     <tr>
+                        <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Name</th>
-                        <th class="px-4 py-2">Position</th>
-                        <th class="px-4 py-2">Office</th>
-                        <th class="px-4 py-2">Age</th>
-                        <th class="px-4 py-2">Start date</th>
-                        <th class="px-4 py-2">Salary</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Certificate Number</th>
+                        <th class="px-4 py-2">Expiring Date</th>
+                        <th class="px-4 py-2">Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="border px-4 py-2">Tiger Nixon</td>
-                        <td class="border px-4 py-2">System Architect</td>
-                        <td class="border px-4 py-2">Edinburgh</td>
-                        <td class="border px-4 py-2">61</td>
-                        <td class="border px-4 py-2">2011/04/25</td>
-                        <td class="border px-4 py-2">$320,800</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Garrett Winters</td>
-                        <td class="border px-4 py-2">Accountant</td>
-                        <td class="border px-4 py-2">Tokyo</td>
-                        <td class="border px-4 py-2">63</td>
-                        <td class="border px-4 py-2">2011/07/25</td>
-                        <td class="border px-4 py-2">$170,750</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Ashton Cox</td>
-                        <td class="border px-4 py-2">Junior Technical Author</td>
-                        <td class="border px-4 py-2">San Francisco</td>
-                        <td class="border px-4 py-2">66</td>
-                        <td class="border px-4 py-2">2009/01/12</td>
-                        <td class="border px-4 py-2">$86,000</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Cedric Kelly</td>
-                        <td class="border px-4 py-2">Senior Javascript Developer</td>
-                        <td class="border px-4 py-2">Edinburgh</td>
-                        <td class="border px-4 py-2">22</td>
-                        <td class="border px-4 py-2">2012/03/29</td>
-                        <td class="border px-4 py-2">$433,060</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Airi Satou</td>
-                        <td class="border px-4 py-2">Accountant</td>
-                        <td class="border px-4 py-2">Tokyo</td>
-                        <td class="border px-4 py-2">33</td>
-                        <td class="border px-4 py-2">2008/11/28</td>
-                        <td class="border px-4 py-2">$162,700</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Brielle Williamson</td>
-                        <td class="border px-4 py-2">Integration Specialist</td>
-                        <td class="border px-4 py-2">New York</td>
-                        <td class="border px-4 py-2">61</td>
-                        <td class="border px-4 py-2">2012/12/02</td>
-                        <td class="border px-4 py-2">$372,000</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Herrod Chandler</td>
-                        <td class="border px-4 py-2">Sales Assistant</td>
-                        <td class="border px-4 py-2">San Francisco</td>
-                        <td class="border px-4 py-2">59</td>
-                        <td class="border px-4 py-2">2012/08/06</td>
-                        <td class="border px-4 py-2">$137,500</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Herrod Chandler</td>
-                        <td class="border px-4 py-2">Sales Assistant</td>
-                        <td class="border px-4 py-2">San Francisco</td>
-                        <td class="border px-4 py-2">59</td>
-                        <td class="border px-4 py-2">2012/08/06</td>
-                        <td class="border px-4 py-2">$137,500</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Ashton Cox</td>
-                        <td class="border px-4 py-2">Junior Technical Author</td>
-                        <td class="border px-4 py-2">San Francisco</td>
-                        <td class="border px-4 py-2">66</td>
-                        <td class="border px-4 py-2">2009/01/12</td>
-                        <td class="border px-4 py-2">$86,000</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Cedric Kelly</td>
-                        <td class="border px-4 py-2">Senior Javascript Developer</td>
-                        <td class="border px-4 py-2">Edinburgh</td>
-                        <td class="border px-4 py-2">22</td>
-                        <td class="border px-4 py-2">2012/03/29</td>
-                        <td class="border px-4 py-2">$433,060</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Airi Satou</td>
-                        <td class="border px-4 py-2">Accountant</td>
-                        <td class="border px-4 py-2">Tokyo</td>
-                        <td class="border px-4 py-2">33</td>
-                        <td class="border px-4 py-2">2008/11/28</td>
-                        <td class="border px-4 py-2">$162,700</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">Brielle Williamson</td>
-                        <td class="border px-4 py-2">Integration Specialist</td>
-                        <td class="border px-4 py-2">New York</td>
-                        <td class="border px-4 py-2">61</td>
-                        <td class="border px-4 py-2">2012/12/02</td>
-                        <td class="border px-4 py-2">$372,000</td>
-                    </tr>
-
+                    @foreach($emails as $email)
+                        <tr>
+                            <td class="border px-4 py-2">{{ $email->id }}</td>
+                            <td class="border px-4 py-2">{{ $email->name }}</td>
+                            <td class="border px-4 py-2">{{ $email->email }}</td>
+                            <td class="border px-4 py-2">{{ $email->certificate_number }}</td>
+                            <td class="border px-4 py-2">{{ $email->expiring_date }}</td>
+                            <td class="border px-4 py-2">{{ $email->status }}</td>
+                        </tr>
+                    @endforeach
 
                     <!-- Add more rows as needed -->
                     </tbody>

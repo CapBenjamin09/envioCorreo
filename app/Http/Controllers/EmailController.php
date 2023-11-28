@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\EmailImport;
 use App\Models\Email;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class EmailController extends Controller
 {
@@ -12,15 +15,8 @@ class EmailController extends Controller
      */
     public function index()
     {
-        return view('send-emails');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $emails = Email::all();
+        return view('send-emails', compact('emails'));
     }
 
     /**
@@ -28,38 +24,14 @@ class EmailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'file_excel' => 'required|mimes:xlsx,xls'
+        ]);
+
+        $file = $request->file('file_excel');
+        Excel::import(new EmailImport, $file);
+
+        return redirect()->route('send-emails.index')->with('success', 'Archivo cargado exitosamente!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Email $email)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Email $email)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Email $email)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Email $email)
-    {
-        //
-    }
 }

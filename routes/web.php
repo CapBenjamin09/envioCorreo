@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     //ENVIO CORREOS
     Route::get('/send-emails', [EmailController::class, 'index'])->name('send-emails.index');
+    Route::post('/send-emails', [EmailController::class, 'store'])->name('send-emails.store');
 });
 
 require __DIR__.'/auth.php';
