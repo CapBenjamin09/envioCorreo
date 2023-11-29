@@ -28,8 +28,8 @@
                         </div>
                     @endif
 
-                    @error('file_excel')
-                    <div class="flex justify-center px-24 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                        @if (isset ($errors) && $errors->any())
+                        <div class="flex justify-center px-24 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                         <span class="mr-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -42,11 +42,13 @@
                                   clip-rule="evenodd" />
                             </svg>
                         </span>
-                        {{ $message }}
-                    </div>
-                    @enderror
+                            @foreach ($errors->all() as $error)
+                            {{$error}}
+                            @endforeach
+                        </div>
+                        @endif
 
-                    <div class="relative grid grid-cols-7 gap-2 ">
+                    <div class="relative grid grid-cols-9 gap-2 ">
                         <form class="ml-32  col-start-1 col-end-6" action="{{ route('send-emails.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
 
@@ -63,8 +65,8 @@
                                           "/>
                                 </label>
 
-                                <x-secondary-button type="submit" class=" py-2.5 px-6 rounded-lg text-sm font-medium bg-teal-200 text-teal-800 hover:bg-teal-400 active:bg-teal-400">
-                                    Cargar Datos
+                                <x-secondary-button type="submit" class=" py-2.5 w-28 rounded-lg text-sm font-medium bg-teal-200 text-teal-800 hover:bg-teal-400 active:bg-teal-400">
+                                    Cargar datos
                                 </x-secondary-button>
                             </div>
 
@@ -73,15 +75,22 @@
 
                         </form>
 
-                        <div>
+                        <div class="flex flex-row mx-4">
 
-                            <form method="POST" action="{{ route('sendEmail') }}" class="col-span-1 col-start-7">
+                            <form method="GET" action="{{ route('sendEmail') }}" class="col-start-6 col-span-2 basis-3/5">
                                 @csrf
-                                @method('GET')
 
-                            <x-secondary-button type="submit" class="py-2.5 px-5 rounded-lg text-sm text-center font-medium text-white bg-teal-600 hover:bg-teal-500 active:bg-teal-500">
+                            <x-secondary-button type="submit" class="py-2.5 w-28 rounded-lg text-sm font-medium bg-teal-200 text-teal-800 hover:bg-teal-400 active:bg-teal-40">
                                 Enviar correos
                             </x-secondary-button>
+                            </form>
+
+                            <form method="GET" action="{{ route('deleteEmail') }}" class="col-start-8 col-span-2">
+                                @csrf
+
+                                <x-secondary-button type="submit" class="mx-5 py-2.5 w-44 rounded-lg text-sm text-center font-medium text-white bg-teal-600 hover:bg-teal-500 active:bg-teal-500">
+                                    Eliminar datos enviados
+                                </x-secondary-button>
                             </form>
 
                         </div>

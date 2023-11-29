@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/send-emails', [EmailController::class, 'index'])->name('send-emails.index');
     Route::post('/send-emails', [EmailController::class, 'store'])->name('send-emails.store');
     Route::get('/emails', [EmailController::class, 'sendEmail'])->name('sendEmail');
+    Route::get('/delete-emails', [EmailController::class, 'deleteEmail'])->name('deleteEmail');
+
 
 });
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Imports\EmailImport;
+use App\Mail\CertificateToExpire;
 use App\Mail\EmailMessage;
+use App\Mail\ExpiredCertificate;
 use App\Models\Email;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -39,12 +42,37 @@ class EmailController extends Controller
     public function sendEmail()
     {
         $emails = Email::all();
+
+
+
         foreach ($emails as $email){
-        Mail::to($email->email)->send(new EmailMessage($email));
+
+            if ($email->status == 'Cargado') {
+                if ($email->expiring_date < Carbon::now()){
+                    Mail::to($email->email)->send(new ExpiredCertificate($email));
+                } else {
+                    Mail::to($email->email)->send(new CertificateToExpire($email));
+                }
+
+                $email->status = 'Enviado';
+                $email->update();
+            }
+
         }
 
 
         return redirect()->route('send-emails.index')->with('success', 'Correos enviados!');
+    }
+
+    public function deleteEmail(){
+        $emails = Email::all();
+        foreach ($emails as $email){
+            if ($email->status == 'Enviado'){
+                $email->delete();
+            }
+        }
+
+        return redirect()->route('send-emails.index')->with('success', 'Regidtros eliminados correctamente');
     }
 
 }

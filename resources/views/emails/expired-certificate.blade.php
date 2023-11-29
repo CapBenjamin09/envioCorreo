@@ -6,7 +6,10 @@
     <title>Aviso de firma avanzada</title>
 </head>
 <body>
-<p>Hola! Su firma electrónica avanzada venció o está por vencer.</p>
+<p>Hola! {{ $email->name }}. <br>
+    Su certificado de firma electrónica avanzada ha vencido en la fecha {{ $email->expiring_date }}.
+</p>
+
 <p>Estos son los datos de su firma:</p>
 <ul>
     <li>Nombre completo: {{ $email->name }}</li>
