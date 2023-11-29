@@ -20,11 +20,13 @@
                                 </div>
                             @endif
 
-                            @error('file_excel')
-                            <div class="flex justify-center px-32 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            @if(isset($errors) && $errors->any())
+                                <div class="flex justify-center px-32 p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                                    @foreach($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </div>
+                            @endif
 
                             <div class="items-center">
                                 <label class="block">

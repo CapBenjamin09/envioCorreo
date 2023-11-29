@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('certificate_number');
-            $table->string('expiring_date');
+            $table->date('expiring_date');
             $table->string('status');
             $table->timestamps();
         });
