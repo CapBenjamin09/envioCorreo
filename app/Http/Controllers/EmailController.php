@@ -41,22 +41,21 @@ class EmailController extends Controller
 
     public function sendEmail()
     {
-        $emails = Email::all();
+        $emails = Email::where('status', 'Cargado')->get();
 
 
 
         foreach ($emails as $email){
 
-            if ($email->status == 'Cargado') {
                 if ($email->expiring_date < Carbon::now()){
                     Mail::to($email->email)->send(new ExpiredCertificate($email));
                 } else {
                     Mail::to($email->email)->send(new CertificateToExpire($email));
                 }
 
-                $email->status = 'Enviado';
-                $email->update();
-            }
+                $email->update([
+                    'status' => 'Enviado'
+                ]);
 
         }
 
