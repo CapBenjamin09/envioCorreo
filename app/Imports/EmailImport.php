@@ -5,14 +5,12 @@ namespace App\Imports;
 use App\Models\Email;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class EmailImport implements ToModel, WithHeadingRow, WithUpserts, WithBatchInserts, WithValidation
+
+class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithValidation
 {
 
     /**
@@ -25,9 +23,11 @@ class EmailImport implements ToModel, WithHeadingRow, WithUpserts, WithBatchInse
         return new Email([
             'name'  => $row['name'],
             'email' => $row['email'],
+            'dpi' => $row['dpi'],
             'certificate_number' => $row['certificate_number'],
+            'request_date' => Date::excelToDateTimeObject($row['request_date']),
             'expiring_date' => Date::excelToDateTimeObject($row['expiring_date']),
-            'status' => 'Cargado',
+            'status' => 'Loaded',
         ]);
     }
 
@@ -38,10 +38,21 @@ class EmailImport implements ToModel, WithHeadingRow, WithUpserts, WithBatchInse
                 'required'
             ],
             '*.email' => [
-                'required'
+                'required',
+                'unique:emails'
+            ],
+            '*.dpi' => [
+                'required',
+                'unique:emails',
+                'digits:13',
             ],
             '*.certificate_number' => [
-                'required'
+                'required',
+                'unique:emails',
+            ],
+            '*.request_date' => [
+                'required',
+//                'date',
             ],
             '*.expiring_date' => [
                 'required',
@@ -54,11 +65,5 @@ class EmailImport implements ToModel, WithHeadingRow, WithUpserts, WithBatchInse
     {
         return 100;
     }
-
-    public function uniqueBy()
-    {
-        return 'email';
-    }
-
 
 }
