@@ -28,7 +28,7 @@
                         </div>
                     @endif
 
-                        @if (isset ($errors) && $errors->any())
+                    @if (isset ($errors) && $errors->any())
                         <div class="flex justify-center px-24 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                         <span class="mr-2">
                             <svg
@@ -42,11 +42,11 @@
                                   clip-rule="evenodd" />
                             </svg>
                         </span>
-                            @foreach ($errors->all() as $error)
-                            {{$error}}
-                            @endforeach
-                        </div>
-                        @endif
+                        @foreach ($errors->all() as $error)
+                        {{$error}}
+                        @endforeach
+                    </div>
+                    @endif
 
                     <div class="relative grid grid-cols-9 gap-2 ">
                         <form class="ml-32  col-start-1 col-end-6" action="{{ route('send-emails.store')}}" method="post" enctype="multipart/form-data">
@@ -114,7 +114,9 @@
                         <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">DPI</th>
                         <th class="px-4 py-2">Certificate Number</th>
+                        <th class="px-4 py-2">Request Date</th>
                         <th class="px-4 py-2">Expiring Date</th>
                         <th class="px-4 py-2">Status</th>
                     </tr>
@@ -125,8 +127,10 @@
                             <td class="border px-4 py-2">{{ $email->id }}</td>
                             <td class="border px-4 py-2">{{ $email->name }}</td>
                             <td class="border px-4 py-2">{{ $email->email }}</td>
+                            <td class="border px-4 py-2">{{ $email->dpi }}</td>
                             <td class="border px-4 py-2">{{ $email->certificate_number }}</td>
-                            <td class="border px-4 py-2">{{ $email->expiring_date }}</td>
+                            <td class="border px-4 py-2">{{  \Carbon\Carbon::parse($email->request_date)->format('d/m/Y') }}</td>
+                            <td class="border px-4 py-2">{{ \Carbon\Carbon::parse($email->expiring_date)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2">{{ $email->status }}</td>
                         </tr>
                     @endforeach

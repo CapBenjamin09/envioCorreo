@@ -13,7 +13,9 @@ class Email extends Model
         'id',
         'name',
         'email',
+        'dpi',
         'certificate_number',
+        'request_date',
         'expiring_date',
         'status',
     ];
