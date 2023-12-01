@@ -8,6 +8,7 @@ use App\Mail\EmailMessage;
 use App\Mail\ExpiredCertificate;
 use App\Models\Email;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -41,24 +42,17 @@ class EmailController extends Controller
 
     public function sendEmail()
     {
-        $emails = Email::where('status', 'loaded')->get();
-
-
-
-        foreach ($emails as $email){
-
-                if ($email->expiring_date < Carbon::now()){
-                    Mail::to($email->email)->send(new ExpiredCertificate($email));
-                } else {
-                    Mail::to($email->email)->send(new CertificateToExpire($email));
+        Email::where('status', 'loaded')
+            ->chunkById(50, function (Collection $emails) {
+                foreach ($emails as $email) {
+                    if ($email->expiring_date < Carbon::now()) {
+                        Mail::to($email->email)->queue(new ExpiredCertificate($email));
+                    } else {
+                        Mail::to($email->email)->queue(new CertificateToExpire($email));
+                    }
+                    $emails->each->update(['status' => 'sent']);
                 }
-
-                $email->update([
-                    'status' => 'sent'
-                ]);
-
-        }
-
+            });
 
         return redirect()->route('send-emails.index')->with('success', 'Correos enviados!');
     }
@@ -71,7 +65,7 @@ class EmailController extends Controller
             }
         }
 
-        return redirect()->route('send-emails.index')->with('success', 'Regidtros eliminados correctamente');
+        return redirect()->route('send-emails.index')->with('success', 'Registros eliminados correctamente');
     }
 
 }

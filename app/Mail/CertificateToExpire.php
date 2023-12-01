@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CertificateToExpire extends Mailable
+class CertificateToExpire extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
