@@ -41,7 +41,7 @@ class EmailController extends Controller
 
     public function sendEmail()
     {
-        $emails = Email::where('status', 'Cargado')->get();
+        $emails = Email::where('status', 'loaded')->get();
 
 
 
@@ -54,7 +54,7 @@ class EmailController extends Controller
                 }
 
                 $email->update([
-                    'status' => 'Enviado'
+                    'status' => 'sent'
                 ]);
 
         }
@@ -66,7 +66,7 @@ class EmailController extends Controller
     public function deleteEmail(){
         $emails = Email::all();
         foreach ($emails as $email){
-            if ($email->status == 'Enviado'){
+            if ($email->status == 'sent'){
                 $email->delete();
             }
         }

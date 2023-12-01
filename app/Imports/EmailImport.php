@@ -27,7 +27,7 @@ class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithVali
             'certificate_number' => $row['certificate_number'],
             'request_date' => Date::excelToDateTimeObject($row['request_date']),
             'expiring_date' => Date::excelToDateTimeObject($row['expiring_date']),
-            'status' => 'Loaded',
+            'status' => 'loaded',
         ]);
     }
 

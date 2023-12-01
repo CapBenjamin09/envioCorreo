@@ -75,7 +75,7 @@
                                                 <td valign="top" align="center" style="padding:0;Margin:0;width:590px">
                                                     <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                         <tr style="border-collapse:collapse">
-                                                            <td align="center" style="padding:0;Margin:0;font-size:0"><a href="https://viewstripo.email" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:14px"><img src="https://fckafun.stripocdn.email/content/guids/CABINET_d3b68819472f4ece19b4af83aeb925a7/images/14421504177408436.png" alt="Smart home logo" title="Smart home logo" width="109" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+                                                            <td align="center" style="padding:0;Margin:0;font-size:0"><a href="https://www.movil-max.com" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:14px"><img src="https://movil-max.com/assets/uploads/media-uploader/logo-movilmax1636649420.png" alt="Movil Max" title="movil-max" width="109" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
                                                         </tr>
                                                     </table></td>
                                             </tr>
