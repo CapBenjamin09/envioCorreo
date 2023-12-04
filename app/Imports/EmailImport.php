@@ -3,15 +3,20 @@
 namespace App\Imports;
 
 use App\Models\Email;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Validators\Failure;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 
-class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithValidation
+class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnFailure
 {
+
+    use SkipsFailures;
 
     /**
     * @param array $row
@@ -39,11 +44,11 @@ class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithVali
             ],
             '*.email' => [
                 'required',
-                'unique:emails'
+//                'unique:emails'
             ],
             '*.dpi' => [
                 'required',
-                'unique:emails',
+//                'unique:emails',
                 'digits:13',
             ],
             '*.certificate_number' => [
@@ -66,4 +71,8 @@ class EmailImport implements ToModel, WithHeadingRow, WithBatchInserts, WithVali
         return 100;
     }
 
+    public function onFailure(Failure ...$failures)
+    {
+        // TODO: Implement onFailure() method.
+    }
 }
